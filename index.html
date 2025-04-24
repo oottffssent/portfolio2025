@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Connection</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Pretendard Variable', sans-serif; 
+      background: url('img/asdfasdf.png') no-repeat center/cover;
+      background-attachment: fixed; /* 💡 스크롤해도 고정됨 */
+      transition: background-image 1s ease-in-out;}
+    h1, h2, h3 { font-weight: 700; color: #fff; }
+    h3 {color: #111;}
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+    section {
+  scroll-margin-top: 100px; /* 헤더 높이보다 약간 더 */
+}
+    .main-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  z-index: 9999;
+  pointer-events: none; /* 클릭 방지 안 되게 설정하려면 제거 */
+}
+
+.header-inner {
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0,0,0, 0.3);
+  border-radius: 12px;
+  pointer-events: auto;
+}
+
+.gnb {
+  display: flex;
+  gap: 60px;
+}
+
+.gnb a {
+  text-decoration: none;
+  color: #ddd;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.gnb a:hover{
+  color: #fff;
+}
+    .container {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 20px;
+    }
+
+    .container-full {
+      width: 100%;
+      padding: 60px 20px;
+    }
+
+    .hero {
+      height: 900px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      padding: 150px 20px;
+    }
+    .hero h1 { font-size: 6rem; letter-spacing: 0.5em; line-height: 1.4; }
+    .hero p { font-size: 1.25rem; color: #ddd;}
+    .hero p span { font-weight: 700; color: #fff;}
+    .hero .tags {
+      max-width: 300px;
+  display: flex; /* inline-block → flex */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 수평 정렬은 필요 시 */
+  padding: 8px 8px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #333;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin: 0 auto;      /* 수평 중앙 정렬의 핵심! */
+}
+
+.hero .tags p {
+  margin: 0px;
+  font-size: 0.9rem;
+  /* float: left; ❌ 반드시 제거 */
+}
+.hero .tags button{
+  all: unset;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  background-color: #111;
+  border-radius: 12px;
+  margin-left: 8px;
+  float: right;
+}
+
+    .section-title {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-bottom: 20px;
+    }
+
+    .img-wrapper {
+      aspect-ratio: 16 / 9;              /* 1920:1080 비율 유지 */
+      overflow: hidden;                  /* 넘치는 부분 잘라냄 */
+    }
+
+    .img-wrapper img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;                 /* 비율 유지한 채 채움 */
+      object-position: top;              /* 윗부분부터 보여줌 */
+      display: block;
+    }
+    .card h3 { margin-top: 20px; font-size: 1.2rem; line-height: 1.4;}
+    .card p { font-size: 0.9rem; color: #666; }
+    .card .buttons { 
+      margin-top: 12px; 
+      display: flex; 
+      justify-content: center; 
+      gap: 10px; 
+      flex-wrap: wrap; 
+    }
+
+    .btn {
+      padding: 8px 16px;
+      color: white;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .black:hover{
+      box-shadow: 0 4px 12px rgba(0,0,0, 0.3); /* X:0 Y:8 Blur:20 */
+      transform: translateY(-1px);                   /* 살짝 위로 떠오름 */
+    }
+    .purple:hover{
+      box-shadow: 0 4px 12px rgba(92, 78, 255, 0.5); /* X:0 Y:8 Blur:20 */
+      transform: translateY(-1px);                   /* 살짝 위로 떠오름 */
+    }
+
+    .web-contents-layout {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 20px;
+      row-gap: 20px;
+    }
+    .web-card{
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .web-card:first-of-type {
+      aspect-ratio: 16 / 9.16; /* 예시: 1920x960 비율 */
+    }
+    .web-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      object-position: top;
+      display: block;
+    }
+    /* 딤드 + 버튼 컨테이너 */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s ease;
+      pointer-events: none;
+    }
+
+    /* 버튼 */
+    .overlay-btn {
+      padding: 12px 20px;
+      color: white;
+      font-size: 0.85rem;
+      border: 0;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+      background: #5c4eff;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    /* Hover 시 효과 활성화 */
+    .web-card:hover .overlay {
+      background: rgba(0, 0, 0, 0.5); /* 50% 블랙 딤드 */
+      pointer-events: auto;
+    }
+
+    .web-card:hover .overlay-btn {
+      opacity: 1;
+      transform: translateY(0); /* fade-in + slide-up */
+    }
+
+    .web-large { grid-column: 1 / span 8; grid-row: 1 / span 2; }
+    .web-right-top { grid-column: 9 / span 4; grid-row: 1 / span 1; }
+    .web-right-bottom { grid-column: 9 / span 4; grid-row: 2 / span 1; }
+    .web-bottom1 { grid-column: 1 / span 4; grid-row: 3; }
+    .web-bottom2 { grid-column: 5 / span 4; grid-row: 3; }
+    .web-bottom3 { grid-column: 9 / span 4; grid-row: 3; }
+    .web-bottom4 { grid-column: 1 / span 4; grid-row: 4; }
+    .web-bottom5 { grid-column: 5 / span 4; grid-row: 4; }
+    .web-bottom6 { grid-column: 9 / span 4; grid-row: 4; }
+
+    .coding-layout {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+    }
+
+    .coding-card {
+    grid-column: span 3; /* 12컬럼 중 3칸 → 4개 배치 */
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    }
+
+    .coding-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    }
+
+    .coding-card h3 {
+    font-size: 1rem;
+    margin-top: 20px;
+    }
+
+    .coding-card .btn {
+    margin-top: 10px;
+    }
+    
+    .purple{
+      background: #5c4eff;
+    }
+    .black{
+      background: #111;
+    }
+    footer {
+      text-align: center;
+      padding: 80px 20px;
+      margin: 260px 0;
+      color: white;
+      align-items: center;
+    }
+    footer h2 { font-size: 6rem; letter-spacing: 0.5em;}
+    footer p { font-size: 1.25rem; margin-bottom: 40px; color: #ddd;}
+    .footer-contact { display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+    .footer-contact span { background: white; padding: 16px 20px; border-radius: 20px; color: #111; font-size: 0.85rem; 
+      max-width: 300px;
+      display: flex; /* inline-block → flex */
+      align-items: center; /* 세로 중앙 정렬 */
+      justify-content: center; /* 수평 정렬은 필요 시 */
+      padding: 12px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(10px);}
+    .footer-contact span img{
+      margin-right: 4px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      z-index: 10000;
+    }
+  </style>
+  <script>
+    img.addEventListener('click', () => {
+    modal.style.display = "flex";         // 모달을 보여주고
+    modalImg.src = img.src;               // 클릭한 이미지 경로로 대체
+  });
+  </script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="header-inner">
+      <nav class="gnb">
+        <a href="#uxui">UX/UI</a>
+        <a href="#webcontents">Web Contents</a>
+        <a href="#cloning">Clone Coding</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="title">
+        <h1 id="typing-title"></h1>
+        <p>안녕하세요? 사람과 사람을 연결하는 디자이너 <span>김소연</span>입니다.</p>
+        <!--<div class="tags"><p>UI/UX · Contents</p><button class="arrow">arrow</button></div>-->
+    </div>
+  </section>
+
+  <section id="uxui" class="container">
+    <h2 class="section-title">UX/UI</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="img-wrapper">
+        <img src="img/paulbassett_thumb.png" alt="Paulbassett">
+        </div>
+        <h3>PAULBASSETT</h3>
+        <p>기획 · 웹디자인</p>
+        <div class="buttons">
+          <a class="btn black" href="pdf/paulbassett.pdf" download="">PDF</a>
+          <a class="btn purple" href="#">View Website(준비중)</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-wrapper">
+        <img src="img/ikea_thumb.png" alt="IKEA">
+        </div>
+        <h3>IKEA</h3>
+        <p>기획 · 웹디자인</p>
+        <div class="buttons">
+          <a class="btn black" href="pdf/ikea.pdf" download="">PDF</a>
+          <a class="btn purple" href="#">View Website(준비중)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="webcontents" class="container">
+    <h2 class="section-title">Web Contents</h2>
+    <div class="web-contents-layout">
+      <div class="web-card web-large">
+        <img src="img/class101_thumb.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn black" style="margin-right: 8px;"><a href="pdf/fastcampus.pdf" download="">PDF</a></button><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-right-top">
+        <img src="img/00_event_3rmod_241030_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-right-bottom">
+        <img src="img/00_event_npay_gt_241115_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-bottom1">
+        <img src="img/00_lotto_big_241107_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-bottom2">
+        <img src="img/3rmod_event_241113_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-bottom3">
+        <img src="img/241105_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-bottom4">
+        <img src="img/event_happynewyear_241101_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-bottom5">
+        <img src="img/event_danawa_rc400_241105_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+      <div class="web-card web-bottom6">
+        <img src="img/2021christmas_241108_re_1920px.jpg" alt="">
+        <div class="overlay"><button class="overlay-btn">View</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cloning" class="container">
+    <h2 class="section-title">Clon Coding</h2>
+    <div class="coding-layout">
+      <div class="coding-card">
+        <div class="img-wrapper">
+        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-05lighting-sub01-html-2025-04-24-18_44_46.png" alt="Project 1">
+      </div>
+        <h3>우담라이팅</h3>
+        <a href="link/05lighting/sub01.html" class="btn purple">View Website</a>
+      </div>
+      <div class="coding-card">
+        <div class="img-wrapper">
+        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-06caffebene-index-html-2025-04-24-18_44_57.png" alt="Project 2">
+      </div>
+        <h3>카페베네</h3>
+        <a href="link/06caffebene/index.html" class="btn purple">View Website</a>
+      </div>
+      <div class="coding-card">
+        <div class="img-wrapper">
+        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-07hansol-index-html-2025-04-24-18_45_20.png" alt="Project 3">
+      </div>
+        <h3>한솔홈데코</h3>
+        <a href="link/07hansol/index.html" class="btn purple">View Website</a>
+      </div>
+      <div class="coding-card">
+        <div class="img-wrapper">
+        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-08samsung-web-index-html-2025-04-24-18_45_12.png" alt="Project 4">
+      </div>
+        <h3>삼성디스플레이</h3>
+        <a href="link/08samsung_web/index.html" class="btn purple">View Website</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>THANK YOU</h2>
+    <p>봐주셔서 감사합니다. 앞으로 더 나은 미래를 향해 함께 나아가는 디자이너가 되겠습니다.</p>
+    <div class="footer-contact">
+      <span><img src="img/mail.svg">kem912316@naver.com</span>
+      <span><img src="img/tel.svg">010.2441.6892</span>
+    </div>
+  </footer>
+  <!--modal-->
+  <div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // '자세히 보기' 버튼 클릭 시 연결된 이미지 찾아서 모달에 넣기
+  document.querySelectorAll('.overlay-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImage");
+
+      // 버튼의 상위 web-card 안에서 img 요소를 찾는다
+      const img = button.closest('.web-card').querySelector('img');
+
+      // 모달 보여주고 이미지 삽입
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+    });
+  });
+
+  // 닫기 버튼 이벤트
+  document.querySelector(".modal-close").addEventListener("click", () => {
+    document.getElementById("imageModal").style.display = "none";
+  });
+
+  // 배경 클릭 시 닫기
+  document.getElementById("imageModal").addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) {
+      e.currentTarget.style.display = "none";
+    }
+  });
+});
+
+//connection
+
+document.addEventListener("DOMContentLoaded", function () {
+    const target = document.getElementById("typing-title");
+    const text = "CONNECTION";
+    let i = 0;
+
+    function typeLetter() {
+      if (i < text.length) {
+        target.textContent += text[i];
+        i++;
+        setTimeout(typeLetter, 200);
+      } else {
+        blinkText(2); // 타이핑 후 깜빡임 2회 실행
+      }
+    }
+
+    function blinkText(times) {
+      let count = 0;
+      const interval = setInterval(() => {
+        target.style.visibility = (target.style.visibility === 'hidden') ? 'visible' : 'hidden';
+        count++;
+        if (count === times * 2) { // 깜빡임 2회 = 총 4번 (숨김/보임)
+          clearInterval(interval);
+          target.style.visibility = 'visible'; // 최종적으로는 보이게 유지
+        }
+      }, 100); // 깜빡이는 속도
+    }
+
+    typeLetter();
+  });
+
+  //background
+  window.addEventListener("scroll", function () {
+  const scrollY = window.scrollY;
+  const body = document.body;
+
+  if (scrollY > 3000) {
+    body.style.backgroundImage = "url('img/bgbg.png')";
+  } else {
+    body.style.backgroundImage = "url('img/asdfasdf.png')";
+  }
+});
+</script>
+</body>
+</html>
