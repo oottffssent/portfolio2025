@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paul Bassett Section</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      font-family: 'Pretendard', sans-serif;
+      background: #fff;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px 40px;
+      position: relative;
+      z-index: 10;
+      height: 92px;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    nav.gnb {
+      display: flex;
+      gap: 30px;
+      margin-left: 40px;
+    }
+
+    .gnb-item {
+      cursor: pointer;
+    }
+
+    .icons {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+
+    .lnb-wrapper {
+      position: absolute;
+      top: 92px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      padding: 30px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 9;
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .lnb-wrapper.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .lnb {
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 180px;
+    }
+
+    .lnb > li {
+      list-style: none;
+      width: 200px;
+      flex-shrink: 0;
+    }
+
+    .lnb > li > ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lnb > li > ul > li {
+      list-style: none;
+      cursor: pointer;
+      color: #333;
+      transition: all 0.2s ease;
+    }
+
+    .lnb > li > ul > li:hover {
+      font-weight: bold;
+      color: #c4004a;
+    }
+
+    .slider-wrapper {
+      width: calc(100% - 40px);
+      height: calc(100vh - 100px);
+      background: #f7e8eb;
+      margin: 0 auto;
+      border-radius: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      width: 400%;
+      height: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      overflow: hidden;
+    }
+
+    .slide .dimmed {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.12);
+      z-index: 1;
+    }
+
+    .slide > span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .slider-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 352px;
+      height: 82px;
+      background-color: rgba(0,0,0,0);
+      border-radius: 40px 40px 0 0;
+      z-index: 2;
+    }
+
+    .slider-controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-radius: 40px;
+      padding: 10px 20px;
+      z-index: 3;
+    }
+
+    #slide-count {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    #slide-count strong {
+      color: #fff;
+    }
+
+    #slide-count .total {
+      color: #ddd;
+    }
+
+    #pause {
+      width: 24px;
+      height: 24px;
+      font-size: 1.2rem;
+      background: none;
+      border: none;
+      box-shadow: none;
+      cursor: pointer;
+    }
+
+    #prev, #next {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      border: none;
+      font-size: 1.5rem;
+      line-height: 60px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .page-indicator-bg {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">🍓 Paul Bassett</div>
+      <nav class="gnb">
+        <div class="gnb-item">ABOUT US</div>
+        <div class="gnb-item">MENU</div>
+        <div class="gnb-item">SOCIETY</div>
+        <div class="gnb-item">WHAT'S NEW</div>
+        <div class="gnb-item">E-SHOP</div>
+      </nav>
+      <div class="icons">
+        <div class="icon"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+      </div>
+    </header>
+
+    <div class="lnb-wrapper">
+      <ul class="lnb">
+        <li class="aboutus"><ul><li>brand</li><li>brand</li><li>brand</li></ul></li>
+        <li class="menu"><ul><li>coffee</li><li>beverage</li><li>icecream</li><li>food</li><li>product</li></ul></li>
+        <li class="society"><ul><li>membership</li><li>app</li><li>제휴</li></ul></li>
+        <li class="new"><ul><li>event</li><li>news</li><li>공지사항</li></ul></li>
+        <li class="eshop"><ul><li>e-shop안내</li></ul></li>
+      </ul>
+    </div>
+
+    <div class="slider-wrapper">
+      <div class="slides" id="slides">
+        <div class="slide" style="background-color: #fadbd8;">
+          <div class="dimmed"></div>
+          <span>🍓 Slide 1</span>
+        </div>
+        <div class="slide" style="background-color: #f5b7b1;">
+          <div class="dimmed"></div>
+          <span>🍓 Slide 2</span>
+        </div>
+        <div class="slide" style="background-color: #f1948a;">
+          <div class="dimmed"></div>
+          <span>🍓 Slide 3</span>
+        </div>
+        <div class="slide" style="background-color: #ec7063;">
+          <div class="dimmed"></div>
+          <span>🍓 Slide 4</span>
+        </div>
+      </div>
+      <div class="slider-controls">
+        <span id="slide-count"><strong>1</strong> <span class="total">/ 4</span></span>
+        <button id="pause">⏸</button>
+        <button id="prev">◀</button>
+        <button id="next">▶</button>
+      </div>
+    </div>
+
+    <div class="page-indicator-bg">
+      <div class="page-indicator">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const gnb = document.querySelector('.gnb');
+    const lnbWrapper = document.querySelector('.lnb-wrapper');
+    let hideTimeout;
+
+    gnb.addEventListener('mouseenter', () => {
+      clearTimeout(hideTimeout);
+      lnbWrapper.classList.add('show');
+    });
+
+    gnb.addEventListener('mouseleave', () => {
+      hideTimeout = setTimeout(() => lnbWrapper.classList.remove('show'), 300);
+    });
+
+    lnbWrapper.addEventListener('mouseenter', () => {
+      clearTimeout(hideTimeout);
+    });
+
+    lnbWrapper.addEventListener('mouseleave', () => {
+      hideTimeout = setTimeout(() => lnbWrapper.classList.remove('show'), 300);
+    });
+
+    const slides = document.getElementById('slides');
+    const slideCount = document.getElementById('slide-count');
+    const pauseBtn = document.getElementById('pause');
+    let current = 0;
+    let isPlaying = true;
+    let interval = setInterval(nextSlide, 3000);
+
+    function showSlide(index) {
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      slideCount.innerHTML = `<strong>${index + 1}</strong> <span class="total">/ 4</span>`;
+    }
+
+    function nextSlide() {
+      current = (current + 1) % 4;
+      showSlide(current);
+    }
+
+    function prevSlide() {
+      current = (current - 1 + 4) % 4;
+      showSlide(current);
+    }
+
+    document.getElementById('next').onclick = nextSlide;
+    document.getElementById('prev').onclick = prevSlide;
+
+    pauseBtn.onclick = () => {
+      if (isPlaying) {
+        clearInterval(interval);
+        pauseBtn.textContent = '▶';
+      } else {
+        interval = setInterval(nextSlide, 3000);
+        pauseBtn.textContent = '⏸';
+      }
+      isPlaying = !isPlaying;
+    };
+
+    showSlide(current);
+  </script>
+</body>
+</html>
