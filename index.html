@@ -451,7 +451,7 @@
   </section>
 
   <section id="cloning" class="container">
-    <h2 class="section-title">Clon Coding</h2>
+    <h2 class="section-title">Clone Coding</h2>
     <div class="coding-layout">
       <div class="coding-card">
         <div class="img-wrapper">
@@ -501,7 +501,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   // '자세히 보기' 버튼 클릭 시 연결된 이미지 찾아서 모달에 넣기
   document.querySelectorAll('.overlay-btn').forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (e) => {
+      // PDF 버튼 내부에 <a download>가 있는 경우 → 모달 띄우지 않음
+      if (button.querySelector('a[download]')) return;
+
       const modal = document.getElementById("imageModal");
       const modalImg = document.getElementById("modalImage");
 
