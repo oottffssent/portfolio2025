@@ -21,14 +21,18 @@
       all: unset;
       cursor: pointer;
     }
+    button {
+      all: unset;
+    }
     section {
-  scroll-margin-top: 100px; /* 헤더 높이보다 약간 더 */
-}
+      scroll-margin-top: 100px; /* 헤더 높이보다 약간 더 */
+    }
     .main-header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;
+  min-height: 60px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,58 +67,33 @@
   color: #fff;
 }
 
-    /* 햄버거 버튼 */
-    #hamburger-btn {
-      display: none;
-      position: absolute;
-      right: 40px;
-      top: 18px;
-      font-size: 24px;
-      color: #ddd;
-      background: none;
-      border: none;
-      z-index: 10001;
-      cursor: pointer;
-    }
+.hamburger{
+  display: none;
+  cursor: pointer;
+}
 
-    /* 딤드 및 GNB 영역 */
-    .gnb-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 10000;
-      justify-content: center;
-      align-items: start;
-      padding-top: 100px;
-    }
+.gnb-mobile{
+  display: none;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 0;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  font-weight: 300;
+}
 
-    .gnb-popup {
-      background: #fff;
-      width: calc(100% - 20px);
-      max-width: 500px;
-      height: 400px;
-      border-radius: 12px;
-      padding: 40px 20px;
-      position: relative;
-    }
-
-    .gnb-popup .gnb-mobile {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      font-size: 1.2rem;
-    }
-
-    .close-gnb {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 32px;
-      cursor: pointer;
-    }
+.gnb-mobile a{
+  min-width: 180px;
+  padding: 12px;
+}
+.gnb-mobile a:hover{
+  font-weight: 600;
+}
+/* 메뉴 열릴 때 */
+body.menu-open .gnb-mobile {
+  display: flex;
+}
 /*헤더 끝*/
     .container {
       max-width: 1520px;
@@ -408,7 +387,7 @@
       z-index: 10000;
     }
 
-    
+
     @media screen and (max-width: 1280px) {
       #typing-title {
         font-size: 4rem;}
@@ -423,12 +402,26 @@
         font-size: 2.5rem;
         letter-spacing: 0.12;
       }
-
-      .gnb {
+      .gnb{
         display: none;
       }
-      #hamburger-btn {
+      .header-inner{
+        position: relative;
+        display: block;       /* 세로 쌓기 */
+        top: 0;               /* 상단 기준 */
+        transform: none;      /* 중앙 정렬 제거 */
+        align-items: flex-start; /* flex일 경우 위 기준 정렬 */
+        padding: 0;
+        border-radius: 20px;
+        top: 0;               /* 상단 기준 */
+      }
+      .hamburger{
         display: block;
+        background: none;
+        width: 64px;
+        height: 64px;
+        text-align: center;
+        margin: 0 auto;
       }
     }
   </style>
@@ -451,23 +444,15 @@
 
       <!-- 햄버거 메뉴 아이콘 -->
       <button id="hamburger-btn" class="hamburger" aria-label="메뉴 열기">
-        ☰
+        <img src="img/hamburger.svg" alt="햄버거 버튼">
       </button>
-
       
-      <!-- 모바일 GNB 및 딤드 -->
-      <div id="gnb-overlay" class="gnb-overlay">
-        <div class="gnb-popup">
-          <button id="close-gnb" class="close-gnb">×</button>
-          <nav class="gnb gnb-mobile">
-            <a href="#uxui">UX/UI</a>
-            <a href="#webcontents">Web Contents</a>
-            <a href="#cloning">Clone Coding</a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </div>
-      </div>
-
+      <nav class="gnb-mobile">
+        <a href="#uxui">UX/UI</a>
+        <a href="#webcontents">Web Contents</a>
+        <a href="#cloning">Clone Coding</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
     </div>
   </header>
@@ -673,24 +658,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-//햄버거 메뉴 시작작
+
 document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburger-btn");
-  const overlay = document.getElementById("gnb-overlay");
-  const closeBtn = document.getElementById("close-gnb");
+  const gnbMobile = document.querySelector(".gnb-mobile");
 
   hamburger.addEventListener("click", () => {
-    overlay.style.display = "flex";
-  });
+    document.body.classList.toggle("menu-open");
 
-  closeBtn.addEventListener("click", () => {
-    overlay.style.display = "none";
-  });
-
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
-      overlay.style.display = "none";
-    }
+    const isOpen = document.body.classList.contains("menu-open");
+    hamburger.innerHTML = isOpen
+      ? '<img src="img/close.svg" alt="닫기 버튼">' // 필요시 X 아이콘
+      : '<img src="img/hamburger.svg" alt="햄버거 버튼">';
   });
 });
 </script>
