@@ -6,95 +6,115 @@
   <title>Portfolio - Connection</title>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html {
+  /*기본속성*/
+    html, body {
       scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: inherit;
     }
     body { 
       font-family: 'Pretendard Variable', sans-serif; 
       background: url('img/asdfasdf.png') no-repeat center/cover;
-      background-attachment: fixed; /* 💡 스크롤해도 고정됨 */
-      transition: background-image 1s ease-in-out;}
-    h1, h2, h3 { font-weight: 700; color: #fff; }
-    h3 {color: #111;}
+      background-attachment: fixed; /*스크롤해도 고정됨*/
+      transition: background-image 1s ease-in-out;
+    }
+    h1, h2{
+      font-weight: 700; 
+      color: #fff; 
+    }
+    h3 {
+      color: #111;
+    }
     a {
-      all: unset;
+      text-decoration: none;
+      color: inherit;
       cursor: pointer;
     }
     button {
-      all: unset;
+      border: none;
+      background: none;
     }
+    /*기본속성 끝*/
+
     section {
-      scroll-margin-top: 100px; /* 헤더 높이보다 약간 더 */
+      scroll-margin-top: 100px; /*헤더 높이보다 약간 더*/
+    }
+    section:first-child{
+      scroll-margin-top: 0;
     }
     .main-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  min-height: 60px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  z-index: 9999;
-  pointer-events: none; /* 클릭 방지 안 되게 설정하려면 제거 */
-}
+      position: fixed;
+      top: 0;
+      width: 100%;
+      min-height: 60px;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      z-index: 9999;
+      pointer-events: none; /* 클릭 방지 안 되게 설정하려면 제거 */
+    }
 
-.header-inner {
-  padding: 24px 40px;
-  display: flex;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(0,0,0, 0.3);
-  border-radius: 12px;
-  pointer-events: auto;
-}
+    .header-inner {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0,0,0, 0.3);
+      border-radius: 12px;
+      pointer-events: auto;
+    }
 
-.gnb {
-  display: flex;
-  gap: 60px;
-}
+    .gnb {
+      display: flex;
+      gap: 60px;
+    }
 
-.gnb a {
-  text-decoration: none;
-  color: #ddd;
-  font-weight: 500;
-  font-size: 1rem;
-}
-.gnb a:hover{
-  color: #fff;
-}
+    .gnb a {
+      text-decoration: none;
+      color: #ddd;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .gnb a:hover{
+      color: #fff;
+    }
 
-.hamburger{
-  display: none;
-  cursor: pointer;
-}
+    .hamburger{
+      display: none;
+      cursor: pointer;
+    }
 
-.gnb-mobile{
-  display: none;
-  flex-direction: column;
-  padding: 20px;
-  padding-top: 0;
-  position: relative;
-  text-align: center;
-  color: #fff;
-  font-weight: 300;
-}
+    .gnb-mobile{
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      padding-top: 0;
+      position: relative;
+      text-align: center;
+      color: #fff;
+      font-weight: 300;
+    }
 
-.gnb-mobile a{
-  min-width: 180px;
-  padding: 12px;
-}
-.gnb-mobile a:hover{
-  font-weight: 600;
-}
-/* 메뉴 열릴 때 */
-body.menu-open .gnb-mobile {
-  display: flex;
-}
-/*헤더 끝*/
+    .gnb-mobile a{
+      min-width: 180px;
+      padding: 12px;
+    }
+    .gnb-mobile a:hover{
+      font-weight: 600;
+    }
+    /* 메뉴 열릴 때 */
+    body.menu-open .gnb-mobile {
+      display: flex;
+    }
+    /*헤더 끝*/
     .container {
       max-width: 1520px;
       margin: 0 auto;
@@ -110,7 +130,7 @@ body.menu-open .gnb-mobile {
     }
 
     .hero {
-      height: 900px;
+      height: 45rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -122,38 +142,37 @@ body.menu-open .gnb-mobile {
     .hero h1 { font-size: 6rem; letter-spacing: 0.5em; line-height: 1.4; }
     .hero p { font-size: 1.25rem; color: #ddd;}
     .hero p span { font-weight: 700; color: #fff;}
+    /*
     .hero .tags {
       max-width: 300px;
-  display: flex; /* inline-block → flex */
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: center; /* 수평 정렬은 필요 시 */
-  padding: 8px 8px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  color: #333;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin: 0 auto;      /* 수평 중앙 정렬의 핵심! */
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 8px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #333;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
 
-.hero .tags p {
-  margin: 0px;
-  font-size: 0.9rem;
-  /* float: left; ❌ 반드시 제거 */
-}
-.hero .tags button{
-  all: unset;
-  cursor: pointer;
-  width: 48px;
-  height: 48px;
-  background-color: #111;
-  border-radius: 12px;
-  margin-left: 8px;
-  float: right;
-}
-
+    .hero .tags p {
+      margin: 0px;
+      font-size: 0.9rem;
+    }
+    .hero .tags button{
+      all: unset;
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      background-color: #111;
+      border-radius: 12px;
+      margin-left: 8px;
+      float: right;
+    }*/
     .section-title {
       grid-column: 1 / -1;
       text-align: center;
@@ -342,7 +361,8 @@ body.menu-open .gnb-mobile {
     footer h2 { font-size: 6rem; letter-spacing: 0.5em;}
     footer p { font-size: 1.25rem; margin-bottom: 40px; color: #ddd;}
     .footer-contact { display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-    .footer-contact span { background: white; padding: 16px 20px; border-radius: 20px; color: #111; font-size: 0.85rem; 
+    .footer-contact span { 
+      color: #111; 
       max-width: 300px;
       display: flex; /* inline-block → flex */
       align-items: center; /* 세로 중앙 정렬 */
@@ -408,7 +428,6 @@ body.menu-open .gnb-mobile {
       .header-inner{
         position: relative;
         display: block;       /* 세로 쌓기 */
-        top: 0;               /* 상단 기준 */
         transform: none;      /* 중앙 정렬 제거 */
         align-items: flex-start; /* flex일 경우 위 기준 정렬 */
         padding: 0;
@@ -423,14 +442,14 @@ body.menu-open .gnb-mobile {
         text-align: center;
         margin: 0 auto;
       }
+
+      #contact h2{
+        font-size: 2.5rem;
+        letter-spacing: 0.12;
+      }
+      }
     }
   </style>
-  <script>
-    img.addEventListener('click', () => {
-    modal.style.display = "flex";         // 모달을 보여주고
-    modalImg.src = img.src;               // 클릭한 이미지 경로로 대체
-  });
-  </script>
 </head>
 <body>
   <header class="main-header">
@@ -582,95 +601,76 @@ body.menu-open .gnb-mobile {
     <img class="modal-content" id="modalImage">
   </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // '자세히 보기' 버튼 클릭 시 연결된 이미지 찾아서 모달에 넣기
-  document.querySelectorAll('.overlay-btn').forEach(button => {
-    button.addEventListener('click', (e) => {
-      // PDF 버튼 내부에 <a download>가 있는 경우 → 모달 띄우지 않음
-      if (button.querySelector('a[download]')) return;
+document.addEventListener("DOMContentLoaded", () => {
+  // 🔹 모달 기능
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  document.querySelectorAll(".overlay-btn").forEach(button => {
+    // PDF 다운로드 버튼은 제외
+    if (button.querySelector("a[download]")) return;
 
-      const modal = document.getElementById("imageModal");
-      const modalImg = document.getElementById("modalImage");
-
-      // 버튼의 상위 web-card 안에서 img 요소를 찾는다
-      const img = button.closest('.web-card').querySelector('img');
-
-      // 모달 보여주고 이미지 삽입
-      modal.style.display = "flex";
-      modalImg.src = img.src;
+    button.addEventListener("click", () => {
+      const img = button.closest(".web-card").querySelector("img");
+      if (img) {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+      }
     });
   });
 
-  // 닫기 버튼 이벤트
+  // 모달 닫기
   document.querySelector(".modal-close").addEventListener("click", () => {
-    document.getElementById("imageModal").style.display = "none";
+    modal.style.display = "none";
+  });
+  modal.addEventListener("click", e => {
+    if (e.target === e.currentTarget) modal.style.display = "none";
   });
 
-  // 배경 클릭 시 닫기
-  document.getElementById("imageModal").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) {
-      e.currentTarget.style.display = "none";
+  // 🔹 타이핑 애니메이션
+  const title = document.getElementById("typing-title");
+  const text = "CONNECTION";
+  let i = 0;
+
+  function typeLetter() {
+    if (i < text.length) {
+      title.textContent += text[i++];
+      setTimeout(typeLetter, 200);
+    } else {
+      blinkText(2); // 두 번 깜빡임
     }
-  });
-});
-
-//connection
-
-document.addEventListener("DOMContentLoaded", function () {
-    const target = document.getElementById("typing-title");
-    const text = "CONNECTION";
-    let i = 0;
-
-    function typeLetter() {
-      if (i < text.length) {
-        target.textContent += text[i];
-        i++;
-        setTimeout(typeLetter, 200);
-      } else {
-        blinkText(2); // 타이핑 후 깜빡임 2회 실행
-      }
-    }
-
-    function blinkText(times) {
-      let count = 0;
-      const interval = setInterval(() => {
-        target.style.visibility = (target.style.visibility === 'hidden') ? 'visible' : 'hidden';
-        count++;
-        if (count === times * 2) { // 깜빡임 2회 = 총 4번 (숨김/보임)
-          clearInterval(interval);
-          target.style.visibility = 'visible'; // 최종적으로는 보이게 유지
-        }
-      }, 100); // 깜빡이는 속도
-    }
-
-    typeLetter();
-  });
-
-  //background
-  window.addEventListener("scroll", function () {
-  const scrollY = window.scrollY;
-  const body = document.body;
-
-  if (scrollY > 3000) {
-    body.style.backgroundImage = "url('img/bgbg.png')";
-  } else {
-    body.style.backgroundImage = "url('img/asdfasdf.png')";
   }
-});
 
+  function blinkText(times) {
+    let count = 0;
+    const interval = setInterval(() => {
+      title.style.visibility = (title.style.visibility === "hidden") ? "visible" : "hidden";
+      if (++count === times * 2) {
+        clearInterval(interval);
+        title.style.visibility = "visible";
+      }
+    }, 100);
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
+  typeLetter();
+
+  // 🔹 햄버거 메뉴
   const hamburger = document.getElementById("hamburger-btn");
-  const gnbMobile = document.querySelector(".gnb-mobile");
-
   hamburger.addEventListener("click", () => {
     document.body.classList.toggle("menu-open");
-
     const isOpen = document.body.classList.contains("menu-open");
     hamburger.innerHTML = isOpen
-      ? '<img src="img/close.svg" alt="닫기 버튼">' // 필요시 X 아이콘
+      ? '<img src="img/close.svg" alt="닫기 버튼">'
       : '<img src="img/hamburger.svg" alt="햄버거 버튼">';
   });
+});
+
+// 🔹 스크롤에 따라 배경 이미지 변경
+window.addEventListener("scroll", () => {
+  const body = document.body;
+  const scrollY = window.scrollY;
+  body.style.backgroundImage = (scrollY > 3000)
+    ? "url('img/bgbg.png')"
+    : "url('img/asdfasdf.png')";
 });
 </script>
 </body>
