@@ -1,677 +1,621 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Connection</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio-Kim Soyeon</title>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
   <style>
-  /*기본속성*/
-    html, body {
-      scroll-behavior: smooth;
+    :root {
+      --column-width: 78px;
+      --gutter: 24px;
+      --columns: 12;
+      --margin: auto;
+    }
+
+    body {
+      font-family: 'Pretendard Variable', sans-serif; 
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      width: 100%;
+      font-family: sans-serif;
+      background: #fff;
     }
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: inherit;
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(var(--columns), var(--column-width));
+      gap: var(--gutter);
+      max-width: calc((var(--column-width) * var(--columns)) + (var(--gutter) * (var(--columns) - 1)));
+      margin-left: var(--margin);
+      margin-right: var(--margin);
+      padding: 0;
     }
-    body { 
-      font-family: 'Pretendard Variable', sans-serif; 
-      background: url('img/asdfasdf.png') no-repeat center/cover;
-      background-attachment: fixed; /*스크롤해도 고정됨*/
-      transition: background-image 1s ease-in-out;
+
+    .grid-item {
+      background-color: #ccc;
+      height: 120px;
+      border-radius: 8px;
     }
-    h1, h2{
-      font-weight: 700; 
-      color: #fff; 
+
+    
+    
+    /* 공통 초기화 */
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     }
-    h3 {
-      color: #111;
+
+    body {
+    justify-content: center;
+    background-color: #f8f8f8; /* 배경 임의 설정 */
     }
+
+    html{
+      scroll-behavior: smooth;
+    }
+
     a {
       text-decoration: none;
       color: inherit;
       cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
     }
-    button {
-      border: none;
-      background: none;
-    }
-    /*기본속성 끝*/
-
-    section {
-      scroll-margin-top: 100px; /*헤더 높이보다 약간 더*/
-    }
-    section:first-child{
-      scroll-margin-top: 0;
-    }
-    .main-header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      min-height: 60px;
-      height: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-      z-index: 9999;
-      pointer-events: none; /* 클릭 방지 안 되게 설정하려면 제거 */
-    }
-
-    .header-inner {
-      padding: 24px 40px;
-      display: flex;
-      align-items: center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background: rgba(0,0,0, 0.3);
-      border-radius: 12px;
-      pointer-events: auto;
+    /* 헤더 고정 위치 */
+    #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 20px auto; /* 상하좌우 마진 20px */
+    width: calc(100% - 40px); /* 마진 제외한 전체 너비 */
+    z-index: 9999;
     }
 
     .gnb {
+    display: flex;
+    width: 100%;
+    background-color: #111;
+    border-radius: 12px;
+    padding: 8px;
+    text-align: center;
+    }
+
+    .menu {
+    flex: 1;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    }
+
+    .menu:hover {
+    background-color: #333;
+    }
+    .menu.active {
+    background-color: #fff;
+    color: #111;
+    }
+    .hero {
       display: flex;
-      gap: 60px;
-    }
-
-    .gnb a {
-      text-decoration: none;
-      color: #ddd;
-      font-weight: 500;
-      font-size: 1rem;
-    }
-    .gnb a:hover{
-      color: #fff;
-    }
-
-    .hamburger{
-      display: none;
-      cursor: pointer;
-    }
-
-    .gnb-mobile{
-      display: none;
-      flex-direction: column;
-      padding: 20px;
-      padding-top: 0;
-      position: relative;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
       text-align: center;
-      color: #fff;
-      font-weight: 300;
+      position: relative;
+    }
+    .hero .title{
+      width: 100%;
+    }
+    .hero .title h1 { font-size: 6rem; letter-spacing: 0.5em; padding-left: 0.5em; line-height: 1.4; }
+    .hero .title p { font-size: 1.25rem; color: #333;}
+    .hero .title p span { font-weight: 700; color: #111;}
+    .hero .title .resume {margin-top:57px; padding:12px 24px; border-radius: 22px; border: 2px solid #2B65FE; color: #2B65FE; font-weight: 700; font-size: 1rem;}
+    .hero .title .resume:hover{background-color: #2B65FE; color: #fff;}
+    .hero .contact{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      width: 100%;
+      text-align: center;
+    }
+    .hero .contact p{
+      display: inline-block;
+      padding: 8px;
+      font-size: 1rem;
+      color: #333;
+    } 
+    .hero .contact p span{
+      font-weight: 700;
+      color: #111;
+    }
+    #typing-title {
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 8px solid #2B65FE;
+      width: fit-content;
+      text-align: center;
+      margin: 0 auto;
     }
 
-    .gnb-mobile a{
-      min-width: 180px;
-      padding: 12px;
+    .container{
+      
+      border-bottom: 1px solid #ccc;
     }
-    .gnb-mobile a:hover{
-      font-weight: 600;
+    .container h2{
+      grid-column: span 12;
+      text-align: center;
+      margin-top: 120px;
+      margin-bottom: 80px;
+      font-size: 2rem;
     }
-    /* 메뉴 열릴 때 */
-    body.menu-open .gnb-mobile {
-      display: flex;
-    }
-    /*헤더 끝*/
-    .container {
-      max-width: 1520px;
-      margin: 0 auto;
-      padding: 60px 20px;
+    .project{
+      grid-column: span 12;
+      width: 100%;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 20px;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 100px;
+    }
+    .project-title{
+      grid-column: span 6;
     }
 
-    .container-full {
+    .project-title .tag li{
+      display: inline-block;
+      font-size: 0.9rem;
+      border: 1px solid #333;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .project-title .title{
+      display: inline-block;
+      font-size: 2.25rem;
+      font-weight: 300;
+    }
+    .project-title p{
+      font-size: 1rem;
+      padding-top: 8px;
+    }
+    .download-pdf{
+      padding: 12px 20px;
+      background-color: #2b65fe;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #fff;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .project img{
+      grid-column: span 6;
       width: 100%;
-      padding: 60px 20px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
-    .hero {
-      height: 45rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    #webcontents .project-title{
+      grid-column: span 12;
       text-align: center;
-      color: white;
-      padding: 150px 20px;
     }
-    .hero h1 { font-size: 6rem; letter-spacing: 0.5em; line-height: 1.4; }
-    .hero p { font-size: 1.25rem; color: #ddd;}
-    .hero p span { font-weight: 700; color: #fff;}
-    /*
-    .hero .tags {
-      max-width: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 8px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 20px;
-      font-size: 0.9rem;
-      color: #333;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin: 0 auto;
+    #webcontents img{
+      grid-column: span 2;
+      aspect-ratio: 1 / 4;
     }
-
-    .hero .tags p {
-      margin: 0px;
-      font-size: 0.9rem;
+    #webcontents .event img{
+      grid-column: span 4;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    .hero .tags button{
-      all: unset;
-      cursor: pointer;
+    #coding h2{
+      margin-bottom: 0;
+    }
+    #coding p{
+      margin-top: 0;
+      padding: 0;
+      margin-bottom: 40px;
+    }
+    #coding .project-title{
+      grid-column: span 12;
+      text-align: center;
+    }
+    #coding .coding-contents{
+      grid-column: span 6;
+      aspect-ratio: 16 / 9;
+      text-align: center;
+    }
+    #coding .coding-contents p{
+      padding-top: 24px;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+    #coding .coding-contents a{
+      margin: 0;
+      margin-top: 12px;
+    }
+    footer{
+      position: relative;
+    }
+    footer a{
+      transition: opacity 0.8s ease;
+      pointer-events: none;
       width: 48px;
       height: 48px;
       background-color: #111;
       border-radius: 12px;
-      margin-left: 8px;
-      float: right;
-    }*/
-    .section-title {
-      grid-column: 1 / -1;
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 40px;
-    }
-
-    .grid {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      position: relative;
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-bottom: 20px;
-    }
-
-    .img-wrapper {
-      aspect-ratio: 16 / 9;              /* 1920:1080 비율 유지 */
-      overflow: hidden;                  /* 넘치는 부분 잘라냄 */
-    }
-
-    .img-wrapper img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;                 /* 비율 유지한 채 채움 */
-      object-position: top;              /* 윗부분부터 보여줌 */
-      display: block;
-    }
-    .card h3 { margin-top: 20px; font-size: 1.2rem; line-height: 1.4;}
-    .card p { font-size: 0.9rem; color: #666; }
-    .card .buttons { 
-      margin-top: 12px; 
-      display: flex; 
-      justify-content: center; 
-      gap: 10px; 
-      flex-wrap: wrap; 
-    }
-
-    .btn {
-      padding: 8px 16px;
-      color: white;
-      font-size: 0.85rem;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .black:hover{
-      box-shadow: 0 4px 12px rgba(0,0,0, 0.3); /* X:0 Y:8 Blur:20 */
-      transform: translateY(-1px);                   /* 살짝 위로 떠오름 */
-    }
-    .purple:hover{
-      box-shadow: 0 4px 12px rgba(92, 78, 255, 0.5); /* X:0 Y:8 Blur:20 */
-      transform: translateY(-1px);                   /* 살짝 위로 떠오름 */
-    }
-
-    .web-contents-layout {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 20px;
-      row-gap: 20px;
-    }
-    .web-card{
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    .web-card:first-of-type {
-      aspect-ratio: 16 / 9.16; /* 예시: 1920x960 비율 */
-    }
-    .web-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      object-position: top;
-      display: block;
-    }
-    /* 딤드 + 버튼 컨테이너 */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background 0.3s ease;
-      pointer-events: none;
-    }
-
-    /* 버튼 */
-    .overlay-btn {
-      padding: 12px 20px;
-      color: white;
-      font-size: 0.85rem;
-      border: 0;
-      border-radius: 6px;
-      text-decoration: none;
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 1s ease;
-      background: #5c4eff;
-      cursor: pointer;
-      pointer-events: auto;
-    }
-
-    /* Hover 시 효과 활성화 */
-    .web-card:hover .overlay {
-      background: rgba(0, 0, 0, 0.5); /* 50% 블랙 딤드 */
-      pointer-events: auto;
-    }
-
-    .web-card:hover .overlay-btn {
-      opacity: 1;
-      transform: translateY(0); /* fade-in + slide-up */
-    }
-
-    .web-large { grid-column: 1 / span 8; grid-row: 1 / span 2; }
-    .web-right-top { grid-column: 9 / span 4; grid-row: 1 / span 1; }
-    .web-right-bottom { grid-column: 9 / span 4; grid-row: 2 / span 1; }
-    .web-bottom1 { grid-column: 1 / span 4; grid-row: 3; }
-    .web-bottom2 { grid-column: 5 / span 4; grid-row: 3; }
-    .web-bottom3 { grid-column: 9 / span 4; grid-row: 3; }
-    .web-bottom4 { grid-column: 1 / span 4; grid-row: 4; }
-    .web-bottom5 { grid-column: 5 / span 4; grid-row: 4; }
-    .web-bottom6 { grid-column: 9 / span 4; grid-row: 4; }
-
-    .coding-layout {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 20px;
-    row-gap: 20px;
-    }
-
-    .coding-card {
-    grid-column: span 3; /* 12컬럼 중 3칸 → 4개 배치 */
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    text-align: center;
-    padding: 20px;
-    }
-
-    .coding-card img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    }
-
-    .coding-card h3 {
-    font-size: 1rem;
-    margin-top: 20px;
-    }
-
-    .coding-card .btn {
-    margin-top: 10px;
-    }
-    
-    .purple{
-      background: #5c4eff;
-    }
-    .black{
-      background: #111;
-    }
-    footer {
-      text-align: center;
-      padding: 80px 20px;
-      margin: 260px 0;
-      color: white;
-      align-items: center;
-    }
-    footer h2 { font-size: 6rem; letter-spacing: 0.5em;}
-    footer p { font-size: 1.25rem; margin-bottom: 40px; color: #ddd;}
-    .footer-contact { display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-    .footer-contact span { 
-      color: #111; 
-      max-width: 300px;
-      display: flex; /* inline-block → flex */
-      align-items: center; /* 세로 중앙 정렬 */
-      justify-content: center; /* 수평 정렬은 필요 시 */
-      padding: 12px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 12px;
-      font-size: 0.9rem;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(10px);}
-    .footer-contact span img{
-      margin-right: 4px;
-    }
-    .modal {
-      display: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       position: fixed;
-      z-index: 9999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      bottom: 20px;
+      right: 20px;
+      opacity: 0;
+      display: flex;
       justify-content: center;
       align-items: center;
     }
-
-    .modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-      border-radius: 8px;
-      display: block;
+    footer a.visible{
+      opacity: 1;
+      pointer-events: auto;
     }
-
-    .modal-close {
-      position: absolute;
-      top: 40px;
-      right: 60px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-      z-index: 10000;
+    a:hover{
+      background-color: #111;
     }
-
-
-    @media screen and (max-width: 1280px) {
-      #typing-title {
-        font-size: 4rem;}
-    }
-
-    @media screen and (max-width: 740px) {
-      .coding-card {
-        grid-column: span 6; /* 12컬럼 중 6칸 → 2개씩 */
+    @media (max-width: 1279px) {
+      .container {
+        display: grid;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr); /* 비율 기반 그리드 */
+        gap: 20px; /* gutter */
+        padding: 0 40px; /* 좌우 margin */
+        max-width: 100%;
+        box-sizing: border-box; /* 패딩 포함 계산 */
+       }
+        .hero .title h1 {display: none;}
+      
+        .hero .title .resume {margin-top:24px;}
+        
+        .container h2{
+          margin-top: 100px;
+          margin-bottom: 40px;
+          font-size: 2rem;
+        }
       }
 
-      #typing-title {
-        font-size: 2.5rem;
-        letter-spacing: 0.12;
+    @media (max-width: 720px) {
+      .container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        padding: 24px;
       }
-      .gnb{
+
+      .hero .title p { font-size: 1rem;}
+      .project {
+        grid-template-columns: repeat(4, 1fr); /* 명시해주는 것이 안전 */
+        margin-bottom: 60px;
+      }
+      .project-title {
+        text-align: center;
+        grid-column: span 4; /* ✅ 핵심 */
+      }
+      
+      .project-title .tag li{
+        display: inline-block;
+        font-size: 0.6rem;
+      }
+
+      .project-title .title{
+        font-size: 1.75rem;
+      }
+
+      .project-title p{
+        font-size: 0.75rem;
+      }
+
+      .project img {
+        grid-column: span 4; /* 이미지도 4칸으로 */
+      }
+        
+      #webcontents .project-title{
+        grid-column: span 4;
+        text-align: center;
+      }
+      #webcontents img{
+        grid-column: span 1;
+      }  
+      #webcontents img:nth-child(5),#webcontents img:nth-child(6){
         display: none;
       }
-      .header-inner{
-        position: relative;
-        display: block;       /* 세로 쌓기 */
-        transform: none;      /* 중앙 정렬 제거 */
-        align-items: flex-start; /* flex일 경우 위 기준 정렬 */
-        padding: 0;
-        border-radius: 20px;
-        top: 0;               /* 상단 기준 */
-      }
-      .hamburger{
-        display: block;
-        background: none;
-        width: 64px;
-        height: 64px;
+      #coding .project-title{
+        grid-column: span 4;
         text-align: center;
-        margin: 0 auto;
+      }
+      #coding .coding-contents{
+        grid-column: span 2;
+      }
+        
+      #webcontents .event img{
+        grid-column: span 2;
+      }
+    }
+    @media (max-width: 390px) {
+      
+
+      .menu {
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 8px 0;
+      }
+      
+      #coding .coding-contents{
+        grid-column: span 4;
+      }
+        
+      #webcontents .event img{
+        grid-column: span 4;
       }
 
-      #contact h2{
-        font-size: 2.5rem;
-        letter-spacing: 0.12;
+      .hero .contact p{
+        padding: 0;
+        font-size: 0.75rem;
+        color: #333;
+    } 
+    }
+    /*fade-in-up효과*/
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
       }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
+
+    .project > * {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .project.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* 커서 깜빡임 애니메이션 */
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #2B65FE; }
+    }
+
+    #typing-title.typing-finished {
+      animation: blink 1s step-end infinite;
     }
   </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="header-inner">
-      <nav class="gnb">
-        <a href="#uxui">UX/UI</a>
-        <a href="#webcontents">Web Contents</a>
-        <a href="#cloning">Clone Coding</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <!-- 햄버거 메뉴 아이콘 -->
-      <button id="hamburger-btn" class="hamburger" aria-label="메뉴 열기">
-        <img src="img/hamburger.svg" alt="햄버거 버튼">
-      </button>
-      
-      <nav class="gnb-mobile">
-        <a href="#uxui">UX/UI</a>
-        <a href="#webcontents">Web Contents</a>
-        <a href="#cloning">Clone Coding</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-    </div>
+  <header id="header">
+        <nav class="gnb">
+            <a class="menu" href="#uxui">UX/UI</a>
+            <a class="menu" href="#webcontents">Web Contents</a>
+            <a class="menu" href="#coding">Clone Coding</a>
+        </nav>
   </header>
-  <section class="hero">
+  <section id="hero" class="hero">
     <div class="title">
-        <h1 id="typing-title"></h1>
+        <h1 id="typing-title">CONNECTION</h1>
         <p>안녕하세요? 사람과 사람을 연결하는 디자이너 <span>김소연</span>입니다.</p>
-        <!--<div class="tags"><p>UI/UX · Contents</p><button class="arrow">arrow</button></div>-->
+        <a class="resume" href="link/resume.html" art="이력서" target="_blank">RESUME</a>
+    </div>
+    <div class="contact">
+      <p><span>Mail&nbsp;&nbsp;</span>kem931216@naver.com</p>
+      <p><span>Tel&nbsp;&nbsp;</span>010. 2441. 6982</p>
     </div>
   </section>
-
   <section id="uxui" class="container">
     <h2 class="section-title">UX/UI</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="img-wrapper">
-        <img src="img/paulbassett_thumb.png" alt="Paulbassett">
+    
+    <div class="project">
+        <div class="project-title">
+          <ul class="tag">
+            <li>개인 100%</li>
+            <li>웹디자인</li>
+            <li>Figma</li>
+          </ul>
+          <h3 class="title">Paulbassett</h3>
+          <p>브랜드 아이덴티티 향상 및 사용성 개선을 목적으로 <br> 카페 폴바셋의 웹사이트를 리디자인하였습니다.</p>
+          <a class="download-pdf" href="pdf/portfolio_paulbassett.pdf" download="">Download PDF</a>
         </div>
-        <h3>PAULBASSETT</h3>
-        <p>기획 · 웹디자인</p>
-        <div class="buttons">
-          <a class="btn black" href="pdf/paulbassett.pdf" download="">PDF</a>
-          <a class="btn purple" href="link/01paulbassett/refactored_main.html">View Website(준비중)</a>
+        <img src="img/paulbassett.png">
+    </div>
+    
+    <div class="project">
+        <div class="project-title">
+          <ul class="tag">
+            <li>개인 100%</li>
+            <li>프로모션</li>
+            <li>Photoshop</li>
+          </ul>
+          <h3 class="title">Fast Campus</h3>
+          <p>블랙프라이데이를 주제로 한 <br> 패스트캠퍼스의 랜딩 프로모션 페이지입니다.</p>
+          <a class="download-pdf" href="pdf/portfolio_fastcampus.pdf" download="">Download PDF</a>
         </div>
-      </div>
-      <div class="card">
-        <div class="img-wrapper">
-        <img src="img/ikea_thumb.png" alt="IKEA">
-        </div>
-        <h3>IKEA</h3>
-        <p>기획 · 웹디자인</p>
-        <div class="buttons">
-          <a class="btn black" href="pdf/ikea.pdf" download="">PDF</a>
-          <a class="btn purple" href="#">View Website(준비중)</a>
-        </div>
-      </div>
+        <img src="img/fastcampus.jpg">
     </div>
   </section>
-
   <section id="webcontents" class="container">
     <h2 class="section-title">Web Contents</h2>
-    <div class="web-contents-layout">
-      <div class="web-card web-large">
-        <img src="img/class101_thumb.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn black" style="margin-right: 8px;"><a href="pdf/fastcampus.pdf" download="">PDF</a></button><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-right-top">
-        <img src="img/00_event_3rmod_241030_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-right-bottom">
-        <img src="img/00_event_npay_gt_241115_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-bottom1">
-        <img src="img/00_lotto_big_241107_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-bottom2">
-        <img src="img/3rmod_event_241113_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-bottom3">
-        <img src="img/241105_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-bottom4">
-        <img src="img/event_happynewyear_241101_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-bottom5">
-        <img src="img/event_danawa_rc400_241105_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
-      <div class="web-card web-bottom6">
-        <img src="img/2021christmas_241108_re_1920px.jpg" alt="">
-        <div class="overlay"><button class="overlay-btn">View</button></div>
-      </div>
+    
+    <div class="project">
+        <div class="project-title">
+          <ul class="tag">
+            <li>디자인 100%</li>
+            <li>웹 상세페이지</li>
+            <li>Photoshop</li>
+          </ul>
+          <h3 class="title">Product Detail Pages</h3>
+          <p>실무에서 진행했던 상세페이지 템플릿 개선<br>프로젝트 및 적용 디자인 모음입니다.</p>
+          <a class="download-pdf" href="pdf/portfolio_pdp.pdf" download="">Download PDF</a>
+        </div>
+        <img src="img/pdp_1.jpg">
+        <img src="img/pdp_2.jpg">
+        <img src="img/pdp_3.jpg">
+        <img src="img/pdp_4.jpg">
+        <img src="img/pdp_5.jpg">
+        <img src="img/pdp_6.jpg">
+    </div>
+    
+    <div class="project event">
+        <div class="project-title">
+          <ul class="tag">
+            <li>디자인 100%</li>
+            <li>이벤트페이지</li>
+            <li>Photoshop</li>
+          </ul>
+          <h3 class="title">Promotion & Event Page</h3>
+          <p>실무에서 진행했던 여러가지 프로모션 <br> 또는 이벤트페이지 모음입니다.</p>
+          <a class="download-pdf" href="pdf/portfolio_event.pdf" download="">Download PDF</a>
+        </div>
+        <img src="img/event_1.jpg">
+        <img src="img/event_2.jpg">
+        <img src="img/event_3.jpg">
+        <img src="img/event_4.jpg">
+        <img src="img/event_5.jpg">
+        <img src="img/event_6.jpg">
     </div>
   </section>
-
-  <section id="cloning" class="container">
+  <section id="coding" class="container">
     <h2 class="section-title">Clone Coding</h2>
-    <div class="coding-layout">
-      <div class="coding-card">
-        <div class="img-wrapper">
-        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-05lighting-sub01-html-2025-04-24-18_44_46.png" alt="Project 1">
-      </div>
-        <h3>우담라이팅</h3>
-        <a href="link/05lighting/sub01.html" class="btn purple">View Website</a>
-      </div>
-      <div class="coding-card">
-        <div class="img-wrapper">
-        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-06caffebene-index-html-2025-04-24-18_44_57.png" alt="Project 2">
-      </div>
-        <h3>카페베네</h3>
-        <a href="link/06caffebene/index.html" class="btn purple">View Website</a>
-      </div>
-      <div class="coding-card">
-        <div class="img-wrapper">
-        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-07hansol-index-html-2025-04-24-18_45_20.png" alt="Project 3">
-      </div>
-        <h3>한솔홈데코</h3>
-        <a href="link/07hansol/index.html" class="btn purple">View Website</a>
-      </div>
-      <div class="coding-card">
-        <div class="img-wrapper">
-        <img src="img/screencapture-file-E-portfolio-portfolio2018-portfolio2018-github-portfolio-link-08samsung-web-index-html-2025-04-24-18_45_12.png" alt="Project 4">
-      </div>
-        <h3>삼성디스플레이</h3>
-        <a href="link/08samsung_web/index.html" class="btn purple">View Website</a>
-      </div>
+    
+    <div class="project">
+        <div class="project-title">
+          <p>기존 웹사이트를 그대로 구현한 퍼블리싱 작업입니다.</p>
+        </div>
+        <div class="coding-contents">
+        <img src="img/hansol.png">
+        <p>한솔홈데코</p>
+        <a class="download-pdf" href="link/07hansol/index.html" alt="한솔홈데코" target="_blank">View</a>
+        </div>
+        <div class="coding-contents">
+        <img src="img/woodam.png">
+        <p>우담라이팅</p>
+        <a class="download-pdf" href="link/05lighting/sub01.html" alt="우담라이팅" target="_blank">View</a>
+        </div>
     </div>
   </section>
-
-  <footer id="contact">
-    <h2>THANK YOU</h2>
-    <p>봐주셔서 감사합니다. 앞으로 더 나은 미래를 향해 함께 나아가는 디자이너가 되겠습니다.</p>
-    <div class="footer-contact">
-      <span><img src="img/mail.svg">kem912316@naver.com</span>
-      <span><img src="img/tel.svg">010.2441.6892</span>
-    </div>
-  </footer>
-  <!--modal-->
-  <div id="imageModal" class="modal">
-    <span class="modal-close">&times;</span>
-    <img class="modal-content" id="modalImage">
-  </div>
+  <footer>
+    <a href="#hero"><img src="img/top.svg" alt="top-button"></a>
+  </footer><!--
+  <div class="container">
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+  </div>-->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // 🔹 모달 기능
-  const modal = document.getElementById("imageModal");
-  const modalImg = document.getElementById("modalImage");
-  document.querySelectorAll(".overlay-btn").forEach(button => {
-    // PDF 다운로드 버튼은 제외
-    if (button.querySelector("a[download]")) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    //TOP버튼: 평소엔 나타나지 않다가 스크롤 내리면 나타나게
+    const topButton = document.querySelector('footer a');
 
-    button.addEventListener("click", () => {
-      const img = button.closest(".web-card").querySelector("img");
-      if (img) {
-        modal.style.display = "flex";
-        modalImg.src = img.src;
-      }
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 50) {
+        topButton.classList.add('visible');
+      } else {
+        topButton.classList.remove('visible');
+      }ㄴㄴㅇㅇ
     });
-  });
 
-  // 모달 닫기
-  document.querySelector(".modal-close").addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-  modal.addEventListener("click", e => {
-    if (e.target === e.currentTarget) modal.style.display = "none";
-  });
+    //TOP버튼: 클릭 시 최상단으로 이동
+    topButton.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-  // 🔹 타이핑 애니메이션
-  const title = document.getElementById("typing-title");
-  const text = "CONNECTION";
-  let i = 0;
+     const contentsList = document.querySelectorAll('.project');
 
-  function typeLetter() {
-    if (i < text.length) {
-      title.textContent += text[i++];
-      setTimeout(typeLetter, 200);
-    } else {
-      blinkText(2); // 두 번 깜빡임
-    }
-  }
+     //fade-in-up효과
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // observer.unobserve(entry.target); // 1회만 발동하려면 주석 해제
+        }
+      });
+    }, {
+      threshold: 0.2 // 20% 보이면 동작
+    });
 
-  function blinkText(times) {
-    let count = 0;
-    const interval = setInterval(() => {
-      title.style.visibility = (title.style.visibility === "hidden") ? "visible" : "hidden";
-      if (++count === times * 2) {
-        clearInterval(interval);
-        title.style.visibility = "visible";
+    contentsList.forEach(contents => observer.observe(contents));
+
+    //gnb active 효과
+    const sectionIds = ['uxui', 'webcontents', 'coding'];
+    const menuLinks = document.querySelectorAll('.gnb .menu');
+
+    window.addEventListener('scroll', () => {
+      let currentId = '';
+
+      sectionIds.forEach(id => {
+        const section = document.getElementById(id);
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+
+        if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+          currentId = id;
+        }
+      });
+
+      menuLinks.forEach(link => {
+        const href = link.getAttribute('href').replace('#', '');
+        if (href === currentId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+
+    //CONNECTION 타이핑 효과
+    const target = document.getElementById("typing-title");
+    const text = "CONNECTION";
+    let index = 0;
+
+    function type() {
+      if (index <= text.length) {
+        target.textContent = text.substring(0, index);
+        index++;
+        setTimeout(type, 150);
+      } else {
+        target.classList.add('typing-finished'); // 타이핑 끝나면 커서 깜빡이기 시작
       }
-    }, 100);
-  }
+    }
 
-  typeLetter();
-
-  // 🔹 햄버거 메뉴
-  const hamburger = document.getElementById("hamburger-btn");
-  hamburger.addEventListener("click", () => {
-    document.body.classList.toggle("menu-open");
-    const isOpen = document.body.classList.contains("menu-open");
-    hamburger.innerHTML = isOpen
-      ? '<img src="img/close.svg" alt="닫기 버튼">'
-      : '<img src="img/hamburger.svg" alt="햄버거 버튼">';
+    type();
   });
-});
-
-// 🔹 스크롤에 따라 배경 이미지 변경
-window.addEventListener("scroll", () => {
-  const body = document.body;
-  const scrollY = window.scrollY;
-  body.style.backgroundImage = (scrollY > 3000)
-    ? "url('img/bgbg.png')"
-    : "url('img/asdfasdf.png')";
-});
 </script>
 </body>
 </html>
